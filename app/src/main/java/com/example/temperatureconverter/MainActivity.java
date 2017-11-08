@@ -1,6 +1,7 @@
 package com.example.temperatureconverter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -33,13 +34,20 @@ public class MainActivity extends Activity {
 
                 float inputValue = Float.parseFloat(text.getText().toString());
                 if (celsiusButton.isChecked()) {
-                    text.setText(String
-                            .valueOf(ConverterUtil.convertFahrenheitToCelsius(inputValue)));
+                    String fahrenheitValue = String.valueOf(inputValue);
+                    String celsiusValue = String.valueOf(ConverterUtil.convertFahrenheitToCelsius(inputValue));
+                    Intent i = Util.createQuery(MainActivity.this, fahrenheitValue, celsiusValue, true);
+                    startActivity(i);
+                    text.setText("");
                     celsiusButton.setChecked(false);
                     fahrenheitButton.setChecked(true);
+
                 } else {
-                    text.setText(String
-                            .valueOf(ConverterUtil.convertCelsiusToFahrenheit(inputValue)));
+                    String fahrenheitValue = String.valueOf(ConverterUtil.convertCelsiusToFahrenheit(inputValue));
+                    String celsiusValue = String.valueOf(inputValue);
+                    Intent i = Util.createQuery(MainActivity.this, fahrenheitValue, celsiusValue, false);
+                    startActivity(i);
+                    text.setText("");
                     fahrenheitButton.setChecked(false);
                     celsiusButton.setChecked(true);
                 }
